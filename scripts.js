@@ -19,6 +19,8 @@ function updateVisiblePlans() {
 // calculatePrice関数を以下のように修正してください
 function calculatePrice() {
     const quantity = parseInt(document.getElementById('quantity').value) || 0;
+    const address_quantity = parseInt(document.getElementById('address_quantity').value) || 0;
+    const allPrintQuantity = quantity + address_quantity;
 
     const grade = document.getElementById('grade').value;
     const finish = document.getElementById('finish').value;
@@ -28,7 +30,7 @@ function calculatePrice() {
     const inputAssistance = document.getElementById('input-assistance').checked;
 
     // 印刷代の計算
-    let selfPrice = calculateBasePrice(grade, finish, quantity);
+    let selfPrice = calculateBasePrice(grade, finish, allPrintQuantity);
 
    
     // 割引の適用
@@ -44,7 +46,7 @@ function calculatePrice() {
 
     // はがき持込なしの追加料金
     if (!bringYourOwn) {
-        selfPrice += quantity * 85;
+        selfPrice += allPrintQuantity * 85;
     }
 
     // DMクーポンの適用
@@ -80,8 +82,8 @@ function calculatePrice() {
             break;
     }*/
 
-    let atenaPrice100 = quantity * 100;
-    let atenaPrice200 = quantity * 200;
+    let atenaPrice100 = address_quantity * 100;
+    let atenaPrice200 = address_quantity * 200;
 
     // のんびりおまかせプランの計算
     let omakasePrice = selfPrice + atenaPrice200;
@@ -92,7 +94,7 @@ function calculatePrice() {
     let marunagePrice100 = selfPrice + atenaPrice100 + 1960;
 
 
-    if(quantity == null || quantity == 0){
+    if(quantity == 0 && address_quantity == 0){
         selfPrice = 0;
         sakuttoPrice = 0;
         omakasePrice = 0;
@@ -164,6 +166,7 @@ function calculateBasePrice(grade, finish, quantity) {
     return basePrice + additionalPrice;
 }
 
+/*
 function getPriceForQuantity(quantity, priceList) {
     for (let item of priceList) {
         if (quantity <= item.max) {
@@ -172,7 +175,7 @@ function getPriceForQuantity(quantity, priceList) {
     }
     return priceList[priceList.length - 1].price; // 100枚を超える場合は最後の価格を返す
 }
-
+*/
 // ファイルの最後に以下のコードを追加してください
 document.addEventListener('DOMContentLoaded', function() {
     updateVisiblePlans();
@@ -185,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const span = document.getElementsByClassName("close")[0];
 
     // 各入力要素にイベントリスナーを追加
-    const inputs = ['quantity', 'grade', 'finish', 'discount', 'bring-your-own', 'dm-option', 'input-assistance'];
+    const inputs = ['quantity', 'grade', 'finish', 'discount', 'bring-your-own', 'dm-option', 'input-assistance','address_quantity'];
     inputs.forEach(id => {
         const element = document.getElementById(id);
         if (element) {
@@ -193,12 +196,15 @@ document.addEventListener('DOMContentLoaded', function() {
             element.addEventListener('change', calculatePrice);
         }
     });
+    //枚数
+    const quantity = parseInt(document.getElementById('quantity').value) || 0;
+    const address_quantity = parseInt(document.getElementById('address_quantity').value) || 0;
 
     // 各プランカードにクリックイベントを追加
     document.querySelectorAll('.plan-card').forEach(card => {
         card.addEventListener('click', function(event) {
             event.preventDefault(); // デフォルトの動作を防止
-            if (document.getElementById('quantity').value == null || document.getElementById('quantity').value == 0) {
+            if (document.getElementById('quantity').value == 0 && document.getElementById('address_quantity').value == 0 ) {
                 alert('枚数を入力してください。');
                 return;
             }
@@ -209,15 +215,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const planName = planTitleElement.innerText;
                 const planPriceElement = this.querySelector('.result-price');
                 const totalCost = parseInt(planPriceElement.textContent.replace('¥', '').replace(',', ''));
-                // 枚数を取得
-                const quantity = parseInt(document.getElementById('quantity').value);
                 // はがき持込なしの追加料金
                 const bringYourOwn = document.getElementById('bring-your-own').checked;
 
+                const quantity = parseInt(document.getElementById('quantity').value) || 0;
+                const address_quantity = parseInt(document.getElementById('address_quantity').value) || 0;
+                const all_quantity = quantity + address_quantity;
+                console.info(all_quantity);
                 // はがき代の計算
                 let postcardCost = 0;
                 if (!bringYourOwn) {
-                    postcardCost = quantity * 85;
+                    postcardCost = all_quantity * 85;
                 }
 
                 // DMクーポンの割引情報を表示
@@ -244,7 +252,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 else{
                     document.getElementById('dmDiscount').innerText = `¥${dmDiscount.toLocaleString()}`
                 }
-
                 // 印刷代からクーポン割引を引いた金額を表示
                 const printCost = totalCost - postcardCost + dmDiscount;
                 document.getElementById('printCost').innerText = `¥${printCost.toLocaleString()}`;
