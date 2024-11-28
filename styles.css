@@ -242,6 +242,21 @@ body {
     background-repeat: no-repeat;
 }
 
+.marunage100-bg {
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+                url('images/marunage100-bg.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.omakase100-bg {
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+                url('images/omakase100-bg.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
 .sakutto-bg {
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
                 url('images/sakutto-bg.png');
