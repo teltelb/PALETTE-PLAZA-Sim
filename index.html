@@ -74,15 +74,20 @@
 
         <!-- 枚数 -->
         <div class="row mb-3">
-            <div class="col-6">
+            <div class="col-4">
                 <div class="form-section">
                     <label for="quantity" class="form-label">枚数</label>
                     <input type="number" id="quantity" class="form-control" placeholder="枚数を入力" oninput="validateNumberInput(this)">
                 </div>
             </div>
-
+            <div class="col-4">
+                <div class="form-section">
+                    <label for="address_quantity" class="form-label">宛名枚数</label>
+                    <input type="number" id="address_quantity" class="form-control" placeholder="枚数を入力" oninput="validateNumberInput(this)">
+                </div>
+            </div>
                 <!-- 割引オプション -->
-            <div class="col-6">
+            <div class="col-4">
                 <div class="form-section">
                     <label for="discount" class="form-label">期間割引</label>
                     <select id="discount" class="form-select">
@@ -140,7 +145,7 @@
                 </div>
                 <div class="col" id="marunage-plan100">
                     <div class="card h-100 shadow-sm">
-                        <div class="card-body plan-card marunage-bg">
+                        <div class="card-body plan-card marunage100-bg">
                             <div class="plan-content">
                                 <h3 class="card-title" hidden="hidden">まるっとおまかせプラン100</h3>
                                 <p class="card-text result-price price-display" id="marunage-plan-price100">¥0</p>
@@ -150,7 +155,7 @@
                 </div>
                 <div class="col" id="omakase-plan100">
                     <div class="card h-100 shadow-sm">
-                        <div class="card-body plan-card omakase-bg">
+                        <div class="card-body plan-card omakase100-bg">
                             <div class="plan-content">
                                 <h3 class="card-title" hidden="hidden">のんびりおまかせプラン100</h3>
                                 <p class="card-text result-price price-display" id="omakase-plan-price100">¥0</p>
