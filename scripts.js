@@ -20,8 +20,7 @@ function updateVisiblePlans() {
 function calculatePrice() {
     const quantity = parseInt(document.getElementById('quantity').value) || 0;
     const address_quantity = parseInt(document.getElementById('address_quantity').value) || 0;
-    const allPrintQuantity = quantity + address_quantity;
-
+    
     const grade = document.getElementById('grade').value;
     const finish = document.getElementById('finish').value;
     const discount = document.getElementById('discount').value;
@@ -30,7 +29,7 @@ function calculatePrice() {
     const inputAssistance = document.getElementById('input-assistance').checked;
 
     // 印刷代の計算
-    let selfPrice = calculateBasePrice(grade, finish, allPrintQuantity);
+    let selfPrice = calculateBasePrice(grade, finish, quantity);
 
    
     // 割引の適用
@@ -46,7 +45,7 @@ function calculatePrice() {
 
     // はがき持込なしの追加料金
     if (!bringYourOwn) {
-        selfPrice += allPrintQuantity * 85;
+        selfPrice += quantity * 85;
     }
 
     // DMクーポンの適用
@@ -220,12 +219,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const quantity = parseInt(document.getElementById('quantity').value) || 0;
                 const address_quantity = parseInt(document.getElementById('address_quantity').value) || 0;
-                const all_quantity = quantity + address_quantity;
-                console.info(all_quantity);
+
                 // はがき代の計算
                 let postcardCost = 0;
                 if (!bringYourOwn) {
-                    postcardCost = all_quantity * 85;
+                    postcardCost = quantity * 85;
                 }
 
                 // DMクーポンの割引情報を表示
