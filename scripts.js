@@ -288,6 +288,8 @@ document.addEventListener('DOMContentLoaded', function() {
 const PLAN_DAYS = {
     'まるっとおまかせプラン': 4,
     'のんびりおまかせプラン': 7,
+    'まるっとおまかせプラン100': 4,
+    'のんびりおまかせプラン100': 7,
     '宛名なし高速プラン': 0,
     'セルフプラン': 5
 };
